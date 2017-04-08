@@ -1,28 +1,49 @@
 <template>
   <section class="container">
-    <svg class="canv"></svg>
+    <canvas id="myChart" class="canv"></canvas>
   </section>
 </template>
 
 <script>
 import axios from '~plugins/axios'
-import * as d3 from 'd3'
 const test = require('../assets/text/test.json')
-
-function vis() {
-  console.log(test.testdata)
-}
 
 export default {
   mounted() {
-    vis()
+    var Chart = require('chart.js')
+    var ctx = document.getElementById("myChart");
+    var data = {
+        datasets: [
+            {
+                label: 'First Dataset',
+                data: [
+                    {
+                        x: 20,
+                        y: 30,
+                        r: 15
+                    },
+                    {
+                        x: 40,
+                        y: 10,
+                        r: 10
+                    }
+                ],
+                backgroundColor:"#FF6384",
+                hoverBackgroundColor: "#FF6384",
+            }]
+    };
+
+    var myBubbleChart = new Chart(ctx,{
+      type: 'bubble',
+      data: data
+    });
   }
 }
 </script>
 
 <style scoped>
 .canv {
-  width: 100vw;
+  width: 70vw;
   height: 60vh;
 }
 </style>
