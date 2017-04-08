@@ -15,10 +15,27 @@ export default {
       data: {
         datasets: [
           {
+            label: '',
+            data: [
+              {
+                  x: 1960,
+                  y: 100,
+                  r: 1
+              },
+              {
+                x: 2017,
+                y: 0,
+                r: 1
+              }
+            ],
+            backgroundColor:"#FFFFFF",
+            hoverBackgroundColor: "#FFFFFF",
+          },
+          {
             label: 'Daten',
             data: [
               {
-                  x: 20,
+                  x: 1999,
                   y: 30,
                   r: 15
               }
