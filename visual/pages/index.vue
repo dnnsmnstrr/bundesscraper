@@ -1,5 +1,7 @@
 <template>
   <section class="container">
+    <input type="text" v-model="query" placeholder="Suchbegriff">
+    <button type="button" v-on:click="search">Suchen</button>
     <canvas id="myChart" class="canv"></canvas>
   </section>
 </template>
@@ -32,16 +34,16 @@ export default {
             hoverBackgroundColor: "#FFFFFF",
           },
           {
-            label: 'Daten',
-            data: [
-              {
-                  x: 1999,
-                  y: 30,
-                  r: 15
+            label: '',
+            data: test.testdata.map(function(ob,i) {
+              return {
+                x: 1961+(i*10),
+                y: ob.sentiment,
+                r: ob.sentiment*0.5
               }
-            ],
-            backgroundColor:"#FF6384",
-            hoverBackgroundColor: "#FF6384",
+            }),
+            backgroundColor:"#ee7a79",
+            hoverBackgroundColor: "#ee7a79",
           }
         ]
       }
@@ -54,6 +56,11 @@ export default {
       type: 'bubble',
       data: this.data
     })
+  },
+  methods: {
+    search: function() {
+      console.log('search')
+    }
   }
 }
 </script>
