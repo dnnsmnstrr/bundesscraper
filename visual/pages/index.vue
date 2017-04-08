@@ -1,29 +1,28 @@
 <template>
   <section class="container">
-
+    <svg class="canv"></svg>
   </section>
 </template>
 
 <script>
 import axios from '~plugins/axios'
+import * as d3 from 'd3'
+const test = require('../assets/text/test.json')
+
+function vis() {
+  console.log(test.testdata)
+}
 
 export default {
+  mounted() {
+    vis()
+  }
 }
 </script>
 
 <style scoped>
-.title
-{
-  margin: 30px 0;
-}
-.users
-{
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.user
-{
-  margin: 10px 0;
+.canv {
+  width: 100vw;
+  height: 60vh;
 }
 </style>
