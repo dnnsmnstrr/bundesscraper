@@ -14,19 +14,20 @@ export default {
   data() {
     return {
       query: "Migration",
+      myBubbleChart: null,
       data: {
         datasets: [
           {
-            label: '',
+            label: 'Skalierung',
             data: [
               {
                   x: 1960,
-                  y: 100,
+                  y: 1,
                   r: 1
               },
               {
                 x: 2017,
-                y: 0,
+                y: -1,
                 r: 1
               }
             ],
@@ -34,16 +35,52 @@ export default {
             hoverBackgroundColor: "#FFFFFF",
           },
           {
-            label: '',
+            label: 'Negativ -1 - -0.5',
             data: test.testdata.map(function(ob,i) {
               return {
                 x: 1961+(i*10),
                 y: ob.sentiment,
-                r: ob.sentiment*0.5
+                r: 10
               }
             }),
             backgroundColor:"#ee7a79",
             hoverBackgroundColor: "#ee7a79",
+          },
+          {
+            label: 'Neutral-Negativ -0.5 - 0',
+            data: test.testdata.map(function(ob,i) {
+              return {
+                x: 1961+(i*10+1),
+                y: ob.sentiment,
+                r: 10
+              }
+            }),
+            backgroundColor:"#e7cd8a",
+            hoverBackgroundColor: "#e7cd8a",
+          },
+          {
+            label: 'Neutral-Positiv 0 - 0.5',
+            data: test.testdata.map(function(ob,i) {
+              return {
+                x: 1961+(i*10+2),
+                y: ob.sentiment,
+                r: 10
+              }
+            }),
+            backgroundColor:"#7869aa",
+            hoverBackgroundColor: "#7869aa",
+          },
+          {
+            label: 'Positiv 0.5 - 1',
+            data: test.testdata.map(function(ob,i) {
+              return {
+                x: 1961+(i*10+3),
+                y: ob.sentiment,
+                r: 10
+              }
+            }),
+            backgroundColor:"#71c0a4",
+            hoverBackgroundColor: "#71c0a4",
           }
         ]
       }
@@ -52,26 +89,50 @@ export default {
   mounted() {
     var Chart = require('chart.js')
     var ctx = document.getElementById("myChart")
-    var myBubbleChart = new Chart(ctx,{
+    this.myBubbleChart = new Chart(ctx,{
       type: 'bubble',
       data: this.data
     })
+    console.log(myBubbleChart)
   },
   methods: {
     search: function() {
-      fetch('', {
-      	method: 'get'
-      }).then(res => {
-        this.data.datasets[1].data = res.map((ob,i) => {
+      var chart = this.myBubbleChart
+      fetch(`http://148.251.91.133:5984/parlasentiment2/_design/by_keyphrase/_view/by_keyphrase?key="${this.query}"`, {
+      	method: 'GET',
+        mode: 'cors'
+      })
+      .then(res => res.json())
+      .then(res => {
+        /*
+        sorted = res.map((ob,i) => {
+          if (ob.sentiment >= 0.5) {
+
+          }
+          else if (ob.sentiment < 0.5 && ob.sentiment > 0) {
+
+          }
+          else if (ob.sentiment < 0 && ob.sentiment > -0.5) {
+
+          }
+          else {
+
+          }
+        })
+        */
+
+        this.data.datasets[1].data = null
+        this.data.datasets[1].data = res.rows.map((ob,i) => {
           return {
-            x: 1999,
-            y: ob.sentiment,
+            x: parseInt(ob.id),
+            y: ob.value.sentiment,
             r: 10
           }
         })
+        chart.update()
       }).catch(err => {
       	// Error :(
-        console.log(err.message)
+        console.log(err)
       });
     }
   }
