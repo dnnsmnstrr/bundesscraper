@@ -17,16 +17,16 @@ export default {
       data: {
         datasets: [
           {
-            label: '',
+            label: 'Skalierung',
             data: [
               {
                   x: 1960,
-                  y: 100,
+                  y: 1,
                   r: 1
               },
               {
                 x: 2017,
-                y: 0,
+                y: -1,
                 r: 1
               }
             ],
@@ -34,16 +34,52 @@ export default {
             hoverBackgroundColor: "#FFFFFF",
           },
           {
-            label: '',
+            label: 'Negativ -1 - -0.5',
             data: test.testdata.map(function(ob,i) {
               return {
                 x: 1961+(i*10),
                 y: ob.sentiment,
-                r: ob.sentiment*0.5
+                r: 10
               }
             }),
             backgroundColor:"#ee7a79",
             hoverBackgroundColor: "#ee7a79",
+          },
+          {
+            label: 'Neutral-Negativ -0.5 - 0',
+            data: test.testdata.map(function(ob,i) {
+              return {
+                x: 1961+(i*10+1),
+                y: ob.sentiment,
+                r: 10
+              }
+            }),
+            backgroundColor:"#e7cd8a",
+            hoverBackgroundColor: "#e7cd8a",
+          },
+          {
+            label: 'Neutral-Positiv 0 - 0.5',
+            data: test.testdata.map(function(ob,i) {
+              return {
+                x: 1961+(i*10+2),
+                y: ob.sentiment,
+                r: 10
+              }
+            }),
+            backgroundColor:"#7869aa",
+            hoverBackgroundColor: "#7869aa",
+          },
+          {
+            label: 'Positiv 0.5 - 1',
+            data: test.testdata.map(function(ob,i) {
+              return {
+                x: 1961+(i*10+3),
+                y: ob.sentiment,
+                r: 10
+              }
+            }),
+            backgroundColor:"#71c0a4",
+            hoverBackgroundColor: "#71c0a4",
           }
         ]
       }
