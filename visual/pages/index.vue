@@ -95,19 +95,48 @@ export default {
   },
   methods: {
     search: function() {
-      fetch('', {
-      	method: 'get'
+      fetch('http://148.251.91.133:5984/parlasentiment2/_find/', {
+      	method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify({
+          "selector": {
+            "keywords": {
+              "$elemMatch": {
+                "$eq": this.query
+              }
+            }
+          }
+        })
       }).then(res => {
-        this.data.datasets[1].data = res.map((ob,i) => {
+        /*
+        sorted = res.map((ob,i) => {
+          if (ob.sentiment >= 0.5) {
+
+          }
+          else if (ob.sentiment < 0.5 && ob.sentiment > 0) {
+
+          }
+          else if (ob.sentiment < 0 && ob.sentiment > -0.5) {
+
+          }
+          else {
+
+          }
+        })
+        */
+        console.log(res);
+
+
+        this.data.datasets[1].data = res.docs.map((ob,i) => {
           return {
-            x: 1999,
+            x: ob.date,
             y: ob.sentiment,
             r: 10
           }
         })
       }).catch(err => {
       	// Error :(
-        console.log(err.message)
+        console.log(err)
       });
     }
   }
