@@ -45,8 +45,8 @@ export default {
         scales: {
             yAxes: [{
                 ticks: {
-                    max: 5,
-                    min: -5,
+                    max: 3,
+                    min: -3,
                     stepSize: 0.5
                 }
             }]
