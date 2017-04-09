@@ -14,6 +14,7 @@ export default {
   data() {
     return {
       query: "Migration",
+      myBubbleChart: null,
       data: {
         datasets: [
           {
@@ -88,13 +89,15 @@ export default {
   mounted() {
     var Chart = require('chart.js')
     var ctx = document.getElementById("myChart")
-    var myBubbleChart = new Chart(ctx,{
+    this.myBubbleChart = new Chart(ctx,{
       type: 'bubble',
       data: this.data
     })
+    console.log(myBubbleChart)
   },
   methods: {
     search: function() {
+      var chart = this.myBubbleChart
       fetch(`http://148.251.91.133:5984/parlasentiment2/_design/by_keyphrase/_view/by_keyphrase?key="${this.query}"`, {
       	method: 'GET',
         mode: 'cors'
@@ -126,6 +129,7 @@ export default {
             r: 10
           }
         })
+        chart.update()
       }).catch(err => {
       	// Error :(
         console.log(err)
