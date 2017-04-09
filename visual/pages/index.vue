@@ -69,6 +69,7 @@ export default {
 input {
   padding: 0.25em 0.5em;
   margin-bottom: 1em;
+  margin-right: 2em;
   border-radius: 2px;
   border-style: solid;
   border-width: 1px;
@@ -76,7 +77,8 @@ input {
   font-size: 1.2em;
 }
 .canv {
-  width: 70vw;
-  height: 60vh;
+  margin: auto;
+  max-width: 80vw;
+  max-height: 80vh;
 }
 </style>
