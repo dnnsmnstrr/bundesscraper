@@ -1,5 +1,12 @@
 <template>
   <section class="container">
+    <select name="stuff" v-model="per">
+      <option value="13">1994 - 1998</option>
+      <option value="14">1998 - 2002</option>
+      <option value="17">2009 - 2013</option>
+      <option value="18">2013 - 2017</option>
+    </select>
+    <input type="number" v-model="per" placeholder="Legislaturperiode">
     <input type="text" v-model="query" placeholder="Suchbegriff">
     <button type="button" v-on:click="search"><i>SUCHEN</i></button>
     <canvas id="myChart" class="canv"></canvas>
@@ -13,35 +20,14 @@ const test = require('../assets/text/test.json')
 export default {
   data() {
     return {
-      query: "Migration",
+      query: "funk",
+      per: "18",
+      myBubbleChart: null,
       data: {
         datasets: [
           {
             label: '',
-            data: [
-              {
-                  x: 1960,
-                  y: 100,
-                  r: 1
-              },
-              {
-                x: 2017,
-                y: 0,
-                r: 1
-              }
-            ],
-            backgroundColor:"#FFFFFF",
-            hoverBackgroundColor: "#FFFFFF",
-          },
-          {
-            label: '',
-            data: test.testdata.map(function(ob,i) {
-              return {
-                x: 1961+(i*10),
-                y: ob.sentiment,
-                r: ob.sentiment*0.5
-              }
-            }),
+            data: null,
             backgroundColor:"#ee7a79",
             hoverBackgroundColor: "#ee7a79",
           }
@@ -52,26 +38,61 @@ export default {
   mounted() {
     var Chart = require('chart.js')
     var ctx = document.getElementById("myChart")
-    var myBubbleChart = new Chart(ctx,{
+    this.myBubbleChart = new Chart(ctx,{
       type: 'bubble',
-      data: this.data
+      data: this.data,
+      options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    max: 3,
+                    min: -3,
+                    stepSize: 0.5
+                }
+            }]
+        }
+    }
     })
+    console.log(myBubbleChart)
   },
   methods: {
     search: function() {
-      fetch('', {
-      	method: 'get'
-      }).then(res => {
-        this.data.datasets[1].data = res.map((ob,i) => {
+      var chart = this.myBubbleChart
+      fetch(`http://148.251.91.133:5984/parlasentiment/_design/keyphrase/_view/keyphrase?startkey="${this.query}"&endkey="${this.query}\ufff0"`, {
+      	method: 'GET',
+        mode: 'cors'
+      })
+      .then(res => res.json())
+      .then(res => {
+        /*
+        sorted = res.map((ob,i) => {
+          if (ob.sentiment >= 0.5) {
+
+          }
+          else if (ob.sentiment < 0.5 && ob.sentiment > 0) {
+
+          }
+          else if (ob.sentiment < 0 && ob.sentiment > -0.5) {
+
+          }
+          else {
+
+          }
+        })
+        */
+
+        this.data.datasets[0].data = null
+        this.data.datasets[0].data = res.rows.filter(ob => ob.id.substr(0, 2) === `${this.per}`).map((ob,i) => {
           return {
-            x: 1999,
-            y: ob.sentiment,
+            x: parseInt(ob.id),
+            y: ob.value.sentiment*10,
             r: 10
           }
         })
+        chart.update()
       }).catch(err => {
       	// Error :(
-        console.log(err.message)
+        console.log(err)
       });
     }
   }
@@ -101,7 +122,7 @@ button {
 }
 .canv {
   margin: auto;
-  max-width: 80vw;
-  max-height: 80vh;
+  max-width: 90vw;
+  max-height: 90vh;
 }
 </style>

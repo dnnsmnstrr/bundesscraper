@@ -3,25 +3,25 @@
     {
       "raw": "Lorem Ipsum dolor sit amet",
       "keywords": ["Lorem", "Ipsum"],
-      "sentiment": 23,
+      "sentiment": -1,
       "date": "2016-05-18T16:00:00Z"
     },
     {
       "raw": "Lorem Ipsum dolor sit amet",
       "keywords": ["Lorem", "Ipsum"],
-      "sentiment": 42,
+      "sentiment": 1,
       "date": "2016-06-18T16:00:00Z"
     },
     {
       "raw": "Lorem Ipsum dolor sit amet",
       "keywords": ["Lorem", "Ipsum"],
-      "sentiment": 76,
+      "sentiment": 0.24856348,
       "date": "2016-07-18T16:00:00Z"
     },
     {
       "raw": "Lorem Ipsum dolor sit amet",
       "keywords": ["Lorem", "Ipsum"],
-      "sentiment": 90,
+      "sentiment": -0.67875,
       "date": "2016-08-18T16:00:00Z"
     }
   ]
