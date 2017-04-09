@@ -28,12 +28,6 @@ export default {
           {
             label: '',
             data: null,
-            backgroundColor:"#FFFFFF",
-            hoverBackgroundColor: "#FFFFFF",
-          },
-          {
-            label: '',
-            data: null,
             backgroundColor:"#ee7a79",
             hoverBackgroundColor: "#ee7a79",
           }
@@ -46,7 +40,18 @@ export default {
     var ctx = document.getElementById("myChart")
     this.myBubbleChart = new Chart(ctx,{
       type: 'bubble',
-      data: this.data
+      data: this.data,
+      options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    max: 5,
+                    min: -5,
+                    stepSize: 0.5
+                }
+            }]
+        }
+    }
     })
     console.log(myBubbleChart)
   },
@@ -76,8 +81,8 @@ export default {
         })
         */
 
-        this.data.datasets[1].data = null
-        this.data.datasets[1].data = res.rows.filter(ob => ob.id.substr(0, 2) === `${this.per}`).map((ob,i) => {
+        this.data.datasets[0].data = null
+        this.data.datasets[0].data = res.rows.filter(ob => ob.id.substr(0, 2) === `${this.per}`).map((ob,i) => {
           return {
             x: parseInt(ob.id),
             y: ob.value.sentiment*10,
