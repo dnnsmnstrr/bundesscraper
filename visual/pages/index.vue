@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <input type="text" v-model="query" placeholder="Suchbegriff">
-    <button type="button" v-on:click="search">Suchen</button>
+    <button type="button" v-on:click="search"><i>SUCHEN</i></button>
     <canvas id="myChart" class="canv"></canvas>
   </section>
 </template>
@@ -69,12 +69,22 @@ export default {
 input {
   padding: 0.25em 0.5em;
   margin-bottom: 1em;
-  margin-right: 2em;
+  margin-right: 1em;
+  margin-top: 0.5em;
   border-radius: 2px;
   border-style: solid;
   border-width: 1px;
   border-color: #d4d0d0;
   font-size: 1.2em;
+}
+button {
+  height: 3em;
+  margin-top: -0.5em;
+  border-style: solid;
+  border-color: #3b3a39;
+  background-color: #3b3a39;
+  color: #f2f2f2;
+  font-weight: bold;
 }
 .canv {
   margin: auto;
