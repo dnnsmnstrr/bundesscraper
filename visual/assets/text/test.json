@@ -1,0 +1,28 @@
+{
+  "testdata": [
+    {
+      "raw": "Lorem Ipsum dolor sit amet",
+      "keywords": ["Lorem", "Ipsum"],
+      "sentiment": 23,
+      "date": "2016-05-18T16:00:00Z"
+    },
+    {
+      "raw": "Lorem Ipsum dolor sit amet",
+      "keywords": ["Lorem", "Ipsum"],
+      "sentiment": 42,
+      "date": "2016-06-18T16:00:00Z"
+    },
+    {
+      "raw": "Lorem Ipsum dolor sit amet",
+      "keywords": ["Lorem", "Ipsum"],
+      "sentiment": 76,
+      "date": "2016-07-18T16:00:00Z"
+    },
+    {
+      "raw": "Lorem Ipsum dolor sit amet",
+      "keywords": ["Lorem", "Ipsum"],
+      "sentiment": 90,
+      "date": "2016-08-18T16:00:00Z"
+    }
+  ]
+}
