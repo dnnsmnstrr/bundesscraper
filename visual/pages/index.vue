@@ -20,7 +20,7 @@ const test = require('../assets/text/test.json')
 export default {
   data() {
     return {
-      query: "Aachen",
+      query: "funk",
       per: "18",
       myBubbleChart: null,
       data: {
