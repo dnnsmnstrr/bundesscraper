@@ -95,19 +95,12 @@ export default {
   },
   methods: {
     search: function() {
-      fetch('http://148.251.91.133:5984/parlasentiment2/_find/', {
-      	method: 'POST',
-        mode: 'cors',
-        body: JSON.stringify({
-          "selector": {
-            "keywords": {
-              "$elemMatch": {
-                "$eq": this.query
-              }
-            }
-          }
-        })
-      }).then(res => {
+      fetch(`http://148.251.91.133:5984/parlasentiment2/_design/by_keyphrase/_view/by_keyphrase?key="${this.query}"`, {
+      	method: 'GET',
+        mode: 'cors'
+      })
+      .then(res => res.json())
+      .then(res => {
         /*
         sorted = res.map((ob,i) => {
           if (ob.sentiment >= 0.5) {
@@ -124,13 +117,12 @@ export default {
           }
         })
         */
-        console.log(res);
 
-
-        this.data.datasets[1].data = res.docs.map((ob,i) => {
+        this.data.datasets[1].data = null
+        this.data.datasets[1].data = res.rows.map((ob,i) => {
           return {
-            x: ob.date,
-            y: ob.sentiment,
+            x: parseInt(ob.id),
+            y: ob.value.sentiment,
             r: 10
           }
         })
