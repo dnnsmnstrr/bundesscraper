@@ -1,5 +1,11 @@
 <template>
   <section class="container">
+    <select name="stuff" v-model="per">
+      <option value="13">1994 - 1998</option>
+      <option value="14">1998 - 2002</option>
+      <option value="17">2009 - 2013</option>
+      <option value="18">2013 - 2017</option>
+    </select>
     <input type="number" v-model="per" placeholder="Legislaturperiode">
     <input type="text" v-model="query" placeholder="Suchbegriff">
     <button type="button" v-on:click="search"><i>SUCHEN</i></button>
