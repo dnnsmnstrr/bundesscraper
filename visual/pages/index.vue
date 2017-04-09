@@ -1,5 +1,6 @@
 <template>
   <section class="container">
+    <input type="number" v-model="per" placeholder="Legislaturperiode">
     <input type="text" v-model="query" placeholder="Suchbegriff">
     <button type="button" v-on:click="search"><i>SUCHEN</i></button>
     <canvas id="myChart" class="canv"></canvas>
@@ -13,7 +14,8 @@ const test = require('../assets/text/test.json')
 export default {
   data() {
     return {
-      query: "",
+      query: "Aachen",
+      per: "18",
       myBubbleChart: null,
       data: {
         datasets: [
@@ -69,7 +71,7 @@ export default {
         */
 
         this.data.datasets[1].data = null
-        this.data.datasets[1].data = res.rows.filter(ob => ob.id.substr(0, 2) === '18').map((ob,i) => {
+        this.data.datasets[1].data = res.rows.filter(ob => ob.id.substr(0, 2) === `${this.per}`).map((ob,i) => {
           return {
             x: parseInt(ob.id),
             y: ob.value.sentiment*10,
