@@ -59,7 +59,20 @@ export default {
   },
   methods: {
     search: function() {
-      console.log('search')
+      fetch('', {
+      	method: 'get'
+      }).then(res => {
+        this.data.datasets[1].data = res.map((ob,i) => {
+          return {
+            x: 1999,
+            y: ob.sentiment,
+            r: 10
+          }
+        })
+      }).catch(err => {
+      	// Error :(
+        console.log(err.message)
+      });
     }
   }
 }
